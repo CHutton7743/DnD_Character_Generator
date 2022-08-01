@@ -28,8 +28,8 @@ public class PDFExportController {
     }
 
     @RequestMapping("/Barbarian")
-    public byte[] fillPDF(ForgeCharacter forgedCharacter) throws IOException {
-        File file = new File("Forge/src/main/resources/templates/5E_CharacterSheet.pdf");
+    public byte[] fillPDF() throws IOException {
+        File file = new File("src/main/resources/templates/5E_CharacterSheet.pdf");
         PDDocument newCharacter = PDDocument.load(file);
 
         PDDocumentCatalog docCatalog = newCharacter.getDocumentCatalog();
@@ -53,6 +53,8 @@ public class PDFExportController {
                 field.setValue("John the drunk");
             } else if (field.getFullyQualifiedName().equals("Alignment")) {
                 field.setValue("good");
+            } else if (field.getFullyQualifiedName().equals("Race")) {
+                field.setValue("Dwarf");
             } else if (field.getFullyQualifiedName().equals("XP")) {
                 field.setValue("5400");
             } else if (field.getFullyQualifiedName().equals("STR")) {
@@ -71,10 +73,9 @@ public class PDFExportController {
                 field.setValue("8");
             }
         }
-        newCharacter.save("Forge/src/main/resources/templates/test.pdf");
-            Path pdfPath = Paths.get("/path/to/file.pdf");
-            byte[] pdf = Files.readAllBytes(pdfPath);
-        return null;
+        newCharacter.save("src/main/resources/templates/test.pdf");
+        Path pdfPath = Paths.get("src/main/resources/templates/test.pdf");
+        return Files.readAllBytes(pdfPath);
     }
     @GetMapping("/ClassTemplate")
     public void getBasicInformation(@RequestParam("characterName") String characterName,
