@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <title>Monk Creation Forge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+          integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900|Source+Sans+Pro:300,900&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div class ="logo animate__animated animate__backInRight">
+        <a href="index.html">
+            <img src ="imgs/dndLogo.png" alt="">
+        </a>
+    </div>
+    <button class = "nav-toggle animate__animated animate__delay-3s animate__fadeInDown" aria-label ="toggle navigation">
+        <span class="hamburger"></span>
+    </button>
+    <nav class = "nav">
+        <ul class ="nav__list">
+            <li class="nav__item"><a href="#home" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="#services" class="nav__link">What is this tool?</a></li>
+            <li class="nav__item"><a href="#work" class="nav__link">Choose your class</a></li>
+        </ul>
+    </nav>
+</header>
+<!-- Introduction -->
+<section class="section__slideshow">
+    <h1 class ="section__title section__title--intro animate__animated animate__backInDown">
+        5th Edition <strong style="color: darkslategrey;"> Monk </strong> Forge </h1>
+</section>
+
+<!-- My Services -->
+<section class="section my_services" id="services">
+    <h2 class="section__title section__title--services">Character Basics</h2>
+    <div class="classBasics">
+        <div class="characterForm animate__animated animate__delay-1s animate__fadeInDown">
+            <form class = "characterForm">
+                <label for="characterName">What is your characters name?</label><br>
+                <input type="text" id="characterName" name="fname"><br>
+                <label for="characterRace">What is your characters race?</label><br>
+                <input type="text" id="characterRace" name="lname">
+            </form>
+        </div>  <!-- Close service -->
+        <form>
+            <label for="level">What level is your character?</label><br>
+            <input type="number" id="level" name="level">
+            <label for="submit"></label><br>
+            <input type="submit" id="submit" name="submit">
+        </form>
+    </div>  <!-- Close service -->
+    
+
+<div class="data">
+
+</div>
+<!-- My work! -->
+<section class="my-work" id="work">
+
+</section>
+<!-- Footer -->
+<footer class ="footer">
+
+</footer>
+<script src="js/index.js"></script>
+</body>
+</html>
