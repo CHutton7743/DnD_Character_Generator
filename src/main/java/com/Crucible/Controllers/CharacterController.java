@@ -21,8 +21,6 @@ class CharacterController {
     CharacterController(CharacterRepository repository) {
         this.repository = repository;
     }
-
-
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/characters")
@@ -30,21 +28,17 @@ class CharacterController {
         return (List<Character>) repository.findAll();
     }
     // end::get-aggregate-root[]
-
     @PostMapping("/characters")
     Character newEmployee(@RequestBody Character newEmployee) {
         return repository.save(newEmployee);
     }
-
     // Single item
-
     @GetMapping("/characters/{id}")
     Character one(@PathVariable String id) throws CharacterNotFoundException {
 
         return repository.findById(id)
                 .orElseThrow(() -> new CharacterNotFoundException(id));
     }
-
     @PutMapping("/characters/{id}")
     Character replaceEmployee(@RequestBody Character newCharacter, @PathVariable String id) {
 
@@ -52,6 +46,16 @@ class CharacterController {
                 .map(Character -> {
                     Character.setName(newCharacter.getName());
                     Character.setCharacterClass(newCharacter.getCharacterClass());
+                    Character.setGender(newCharacter.getGender());
+                    Character.setRace(newCharacter.getRace());
+                    Character.setCharacterLevel(newCharacter.getCharacterLevel());
+                    if (newCharacter.getAlignment()!= null) {
+                    Character.setAlignment(newCharacter.getAlignment());
+                    }
+                    if (newCharacter.getSubrace() != null) {
+                        Character.setSubrace(newCharacter.getSubrace());
+                    }
+                    Character.setSize(newCharacter.getSize());
                     return repository.save(Character);
                 })
                 .orElseGet(() -> {
@@ -59,7 +63,6 @@ class CharacterController {
                     return repository.save(newCharacter);
                 });
     }
-
     @DeleteMapping("/characters/{id}")
     void deleteEmployee(@PathVariable String id) {
         repository.deleteById(id);
