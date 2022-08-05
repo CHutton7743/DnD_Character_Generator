@@ -25,27 +25,27 @@ class CharacterController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-    @GetMapping("/employees")
+    @GetMapping("/characters")
     List<Character> all() {
         return (List<Character>) repository.findAll();
     }
     // end::get-aggregate-root[]
 
-    @PostMapping("/employees")
+    @PostMapping("/characters")
     Character newEmployee(@RequestBody Character newEmployee) {
         return repository.save(newEmployee);
     }
 
     // Single item
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/characters/{id}")
     Character one(@PathVariable String id) throws CharacterNotFoundException {
 
         return repository.findById(id)
                 .orElseThrow(() -> new CharacterNotFoundException(id));
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/characters/{id}")
     Character replaceEmployee(@RequestBody Character newCharacter, @PathVariable String id) {
 
         return repository.findById(id)
@@ -60,7 +60,7 @@ class CharacterController {
                 });
     }
 
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/characters/{id}")
     void deleteEmployee(@PathVariable String id) {
         repository.deleteById(id);
     }
