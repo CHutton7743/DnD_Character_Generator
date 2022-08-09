@@ -1,4 +1,4 @@
-package com.Crucible.Character_Resources;
+package com.Crucible.Forge.Character_Resources;
 
 public enum Race {
     Human, Dwarf, Elf, Halfelf, Halfling, Gnome, Dragonborn, Orc, Halforc, Tiefling

@@ -1,4 +1,4 @@
-package com.Crucible.Character_Resources;
+package com.Crucible.Forge.Character_Resources;
 
 public class Dice {
     public int diceRoll(int diesides) {

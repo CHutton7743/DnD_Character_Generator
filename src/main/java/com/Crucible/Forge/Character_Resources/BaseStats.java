@@ -1,4 +1,4 @@
-package com.Crucible.Character_Resources;
+package com.Crucible.Forge.Character_Resources;
 
 public abstract class BaseStats {
     int strength;

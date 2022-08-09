@@ -1,22 +1,30 @@
-package com.Crucible.Character_Resources;
+package com.Crucible.Forge.Entities_and_Repositories;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import com.Crucible.Forge.Character_Resources.*;
+import com.Crucible.Forge.Character_Resources.Class;
+
+import javax.persistence.*;
 
 @Entity
+@Table(name = "characters")
 public class Character extends SubStats {
     private int speed;
     private Size size;
+    @Column(name = "gender")
     private Gender gender;
+    @Column(name = "race")
     private Race race;
     @Id
+    @Column(name = "name")
     private String name;
+    @Column(name = "class")
     private Class characterClass;
+    @Column(name = "level")
     private int characterLevel;
     private int experience;
     private Alignment alignment;
     private SubRace subrace;
-
     public Character() {
 
     }
@@ -25,7 +33,14 @@ public class Character extends SubStats {
         return speed;
     }
 
-    public Character(Gender gender, Race race, String name, Class characterClass, int characterLevel) {
+    public Character(String name, Gender gender, Race race, Class characterClass, int characterLevel) {
+        this.gender = gender;
+        this.race = race;
+        this.name = name;
+        this.characterClass = characterClass;
+        this.characterLevel = characterLevel;
+    }
+    public Character(String name, Gender gender, Race race, SubRace subRace, Class characterClass, int characterLevel) {
         this.gender = gender;
         this.race = race;
         this.name = name;

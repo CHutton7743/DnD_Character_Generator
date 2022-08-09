@@ -1,4 +1,4 @@
-package com.Crucible.Exceptions;
+package com.Crucible.Forge.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
