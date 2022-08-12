@@ -5,16 +5,25 @@ import com.Crucible.Forge.Entities_and_Repositories.Character;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ForgeCharacter extends SubStats{
+public class ForgeLogic extends SubStats{
     private ArrayList<Integer> statsList = new ArrayList<>();
     private Character character;
 
-    public ForgeCharacter(Character characterToForge) {
+    public ForgeLogic(Character characterToForge) {
         this.character = characterToForge;
     }
 
     public void forgeLogic() {
 
+    }
+    public void runForgeLogic() {
+        calculateCharismaSubstats();
+        calculateDexteritySubstats();
+        calculateIntellectSubstats();
+        calculateStrengthSubstats();
+        calculateWisdomSubstats();
+        calculateRacialStats();
+        calculateSpeed();
     }
 
     private ArrayList<Integer> rollStats4d6() {
@@ -71,6 +80,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.Drow) {
                     character.setDexterity(character.getDexterity() +2);
                     character.setCharisma(character.getCharisma()+1);
+                } else {
+                    character.setIntelligence(character.getIntelligence()+1);
+                    character.setDexterity(character.getDexterity()+2);
                 }
             }
             case Orc, Halforc -> {
@@ -87,6 +99,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.ForestGnome) {
                     character.setIntelligence(character.getIntelligence()+2);
                     character.setConstitution(character.getConstitution()+1);
+                } else {
+                    character.setIntelligence(character.getIntelligence()+2);
+                    character.setWisdom(character.getWisdom()+1);
                 }
             }
             case Halfling -> {
@@ -96,6 +111,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.LightFootHalfling) {
                     character.setDexterity(character.getDexterity()+2);
                     character.setCharisma(character.getCharisma()+1);
+                } else {
+                    character.setDexterity(character.getDexterity()+2);
+                    character.setConstitution(character.getConstitution()+1);
                 }
             }
             case Dwarf -> {
@@ -108,6 +126,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.MountainDwarf) {
                     character.setStrength(character.getStrength()+2);
                     character.setConstitution(character.getConstitution()+2);
+                } else {
+                    character.setStrength(character.getStrength()+2);
+                    character.setConstitution(character.getConstitution()+1);
                 }
             }
             case Dragonborn -> {
@@ -148,11 +169,14 @@ public class ForgeCharacter extends SubStats{
                     character.setIntelligence(character.getIntelligence()+1);
                     character.setDexterity(character.getDexterity()+2);
                 } else if (character.getSubrace() == SubRace.WoodElf) {
-                   character.setConstitution(character.getConstitution()+2);
-                   character.setIntelligence(character.getIntelligence()+1);
+                    character.setConstitution(character.getConstitution()+2);
+                    character.setIntelligence(character.getIntelligence()+1);
                 } else if (character.getSubrace() == SubRace.Drow) {
                     character.setDexterity(character.getDexterity() +2);
                     character.setCharisma(character.getCharisma()+1);
+                } else {
+                    character.setIntelligence(character.getIntelligence()+1);
+                    character.setDexterity(character.getDexterity()+2);
                 }
             }
             case Orc, Halforc -> {
@@ -169,6 +193,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.ForestGnome) {
                     character.setIntelligence(character.getIntelligence()+2);
                     character.setConstitution(character.getConstitution()+1);
+                } else {
+                    character.setIntelligence(character.getIntelligence()+2);
+                    character.setWisdom(character.getWisdom()+1);
                 }
             }
             case Halfling -> {
@@ -178,6 +205,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.LightFootHalfling) {
                     character.setDexterity(character.getDexterity()+2);
                     character.setCharisma(character.getCharisma()+1);
+                } else {
+                    character.setDexterity(character.getDexterity()+2);
+                    character.setConstitution(character.getConstitution()+1);
                 }
             }
             case Dwarf -> {
@@ -190,6 +220,9 @@ public class ForgeCharacter extends SubStats{
                 } else if (character.getSubrace() == SubRace.MountainDwarf) {
                     character.setStrength(character.getStrength()+2);
                     character.setConstitution(character.getConstitution()+2);
+                } else {
+                    character.setStrength(character.getStrength()+2);
+                    character.setConstitution(character.getConstitution()+1);
                 }
             }
             case Dragonborn -> {
@@ -527,17 +560,17 @@ public class ForgeCharacter extends SubStats{
         return false;
     }
 
-    private void calculateSpeed(Race race, SubRace subRace) {
-        switch(race) {
+    private void calculateSpeed() {
+        switch(character.getRace()) {
             case Elf, Tiefling, Orc, Dragonborn, Human, Halfelf, Halforc -> character.setSpeed(30);
             case Gnome, Halfling, Dwarf -> character.setSpeed(25);
-            default -> throw new IllegalStateException("Unexpected value: " + race);
+            default -> throw new IllegalStateException("Unexpected value: " + character.getRace());
         }
-        switch(subRace) {
+        switch(character.getSubrace()) {
             case EladrinElf, HighElf, WoodElf -> character.setSpeed(30);
             case DeepGnome, ForestGnome, RockGnome, GrayDwarf, 
                     HillDwarf, MountainDwarf, LightFootHalfling, StoutHalfling -> character.setSpeed(25);
-            default -> throw new IllegalStateException("Unexpected value: " + race);
+            default -> throw new IllegalStateException("Unexpected value: " + character.getSubrace());
         }
     }
     public ArrayList<Integer> getStatsList() {
