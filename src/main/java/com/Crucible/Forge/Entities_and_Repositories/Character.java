@@ -25,6 +25,7 @@ public class Character extends SubStats {
     private int experience;
     private Alignment alignment;
     private SubRace subrace;
+    private String background;
     public Character() {
 
     }
@@ -118,6 +119,14 @@ public class Character extends SubStats {
 
     public SubRace getSubrace() {
         return subrace;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
     }
 
     public void setSubrace(SubRace subrace) {

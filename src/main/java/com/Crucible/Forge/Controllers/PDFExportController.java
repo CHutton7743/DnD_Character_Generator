@@ -1,6 +1,8 @@
 package com.Crucible.Forge.Controllers;
 
+import com.Crucible.Forge.Character_Resources.Alignment;
 import com.Crucible.Forge.Character_Resources.BaseStats;
+import com.Crucible.Forge.Character_Resources.Race;
 import com.Crucible.Forge.Entities_and_Repositories.Character;
 import com.Crucible.Forge.Exceptions.PdfExportException;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -145,36 +147,36 @@ public class PDFExportController {
     public void addSavingThrows(ArrayList<PDField> fieldsList, Character character) throws IOException {
         for (PDField field: fieldsList) {
             if (field.getFullyQualifiedName().equals("ST Strength")) {
-                field.setValue("2");
+                field.setValue(String.valueOf(character.getStrength()));
             } else if (field.getFullyQualifiedName().equals("ST Dexterity")) {
-                field.setValue("8");
+                field.setValue(String.valueOf(character.getDexterity()));
             } else if (field.getFullyQualifiedName().equals("ST Constitution")) {
-                field.setValue("9");
+                field.setValue(String.valueOf(character.getConstitution()));
             } else if (field.getFullyQualifiedName().equals("ST Intelligence")) {
-                field.setValue("3");
+                field.setValue(String.valueOf(character.getIntelligence()));
             } else if (field.getFullyQualifiedName().equals("ST Wisdom")) {
-                field.setValue("4");
+                field.setValue(String.valueOf(character.getWisdom()));
             } else if (field.getFullyQualifiedName().equals("ST Charisma")) {
-                field.setValue("1");
+                field.setValue(String.valueOf(character.getCharisma()));
             }
         }
     }
     public void addBasics(ArrayList<PDField> fieldsList, Character character) throws IOException {
         for (PDField field: fieldsList) {
             if (field.getFullyQualifiedName().equals("PlayerName")) {
-                field.setValue("Codey");
+                field.setValue(character.getName());
             } else if (field.getFullyQualifiedName().equals("ClassLevel")) {
-                field.setValue("Monk 3");
+                field.setValue(String.valueOf(character.getCharacterLevel()));
             } else if (field.getFullyQualifiedName().equals("Background")) {
                 field.setValue("Drunk");
             } else if (field.getFullyQualifiedName().equals("CharacterName")) {
-                field.setValue("John the drunk");
+                field.setValue(character.getName());
             } else if (field.getFullyQualifiedName().equals("CharacterName 2")) {
-                field.setValue("John the drunk");
+                field.setValue(character.getName());
             } else if (field.getFullyQualifiedName().equals("Alignment")) {
-                field.setValue("good");
+                field.setValue(character.getAlignment().toString());
             } else if (field.getFullyQualifiedName().equals("Race ")) {
-                field.setValue("Dwarf");
+                field.setValue(character.getRace().toString());
             } else if (field.getFullyQualifiedName().equals("XP")) {
                 field.setValue("0");
             }
@@ -249,7 +251,7 @@ public class PDFExportController {
         for (PDField field: fieldsList) {
             if (field.getFullyQualifiedName().equals("STRmod")) {
                     field.setValue(String.valueOf(calculateBaseStatsModifier(character.getStrength())));
-            } else if (field.getFullyQualifiedName().equals("DEXmod")) {
+            } else if (field.getFullyQualifiedName().equals("DEXmod ")) {
                 field.setValue(String.valueOf(calculateBaseStatsModifier(character.getDexterity())));
             } else if (field.getFullyQualifiedName().equals("CONmod")) {
                 field.setValue(String.valueOf(calculateBaseStatsModifier(character.getConstitution())));
