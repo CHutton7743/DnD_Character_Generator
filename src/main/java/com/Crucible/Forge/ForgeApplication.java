@@ -23,9 +23,7 @@ public class ForgeApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		this.userRepository.save(new User(1, "Codey", "Hutton", "Codeyhutton12@gmail.com"));
 		this.userRepository.save(new User(2, "Natalie", "Hutton", "misspage1993@gmail.com"));
-		this.characterRepository.save(new Character("John the blessed", Gender.Male, Race.Dragonborn, Class.Cleric,3));
-		this.characterRepository.save(new Character("Valerie the wild", Gender.Female, Race.Tiefling, Class.Druid,15));
-		this.characterRepository.save(new Character("Gifluk", Gender.Other, Race.Dwarf, SubRace.GrayDwarf, Class.Barbarian,8));
+		this.characterRepository.save(new Character("Codey", "Male", "Human", 1L, "Fighter", 1));
 	}
 	@Autowired
 	UserRepository userRepository;

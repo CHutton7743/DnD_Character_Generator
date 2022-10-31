@@ -9,40 +9,44 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
-    private UserRepository repository;
+    UserRepository userRepository;
 
-    @GetMapping("users")
-    public List<User> getUsers() {
-        return this.repository.findAll();
+    @GetMapping
+    List<User> all() {
+        return userRepository.findAll();
     }
-    @PostMapping("users")
+
+    @PostMapping
     User newUser(@RequestBody User newUser) {
-        return repository.save(newUser);
+        return userRepository.save(newUser);
     }
-    @GetMapping("users/{id}")
+
+    @GetMapping("/{id}")
     User one(@PathVariable Long id) throws UserNotFoundException {
-        return repository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
-    @PutMapping("users/{id}")
+
+    @PutMapping("/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable Long id) {
-        return repository.findById(id)
-                .map(User -> {
-                    User.setFirstName(newUser.getFirstName());
-                    User.setLastName(newUser.getLastName());
-                    User.setEmail(newUser.getEmail());
-                    return repository.save(User);
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setFirstName(newUser.getFirstName());
+                    user.setLastName(newUser.getLastName());
+                    user.setEmail(newUser.getEmail());
+                    return userRepository.save(user);
                 })
                 .orElseGet(() -> {
                     newUser.setId(id);
-                    return repository.save(newUser);
+                    return userRepository.save(newUser);
                 });
     }
-    @DeleteMapping("users/{id}")
-    void deleteEmployee(@PathVariable Long id) {
-        repository.deleteById(id);
+
+    @DeleteMapping("/{id}")
+    void deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
     }
 }

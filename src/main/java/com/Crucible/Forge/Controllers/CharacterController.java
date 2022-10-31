@@ -1,61 +1,57 @@
 package com.Crucible.Forge.Controllers;
-
-import java.util.List;
-
 import com.Crucible.Forge.Entities_and_Repositories.Character;
 import com.Crucible.Forge.Entities_and_Repositories.CharacterRepository;
 import com.Crucible.Forge.Exceptions.CharacterNotFoundException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/characters")
 class CharacterController {
+    ObjectMapper mapper = new ObjectMapper();
     private final CharacterRepository repository;
+
     CharacterController(CharacterRepository repository) {
         this.repository = repository;
     }
 
-    @GetMapping("characters")
+    @GetMapping
     List<Character> all() {
-        return (List<Character>) repository.findAll();
+        return repository.findAll();
     }
-    // end::get-aggregate-root[]
-    @PostMapping("characters")
+
+    @PostMapping
     Character newCharacter(@RequestBody Character newCharacter) {
         return repository.save(newCharacter);
     }
-    // Single item
-    @GetMapping("characters/{id}")
-    Character one(@PathVariable String id) throws CharacterNotFoundException {
 
+
+    @GetMapping("/{id}")
+    Character one(@PathVariable Long id) throws CharacterNotFoundException {
         return repository.findById(id)
                 .orElseThrow(() -> new CharacterNotFoundException(id));
     }
-    @PutMapping("characters/{id}")
-    Character replaceCharacter(@RequestBody Character newCharacter, @PathVariable String id) {
-        return repository.findById(id)
-                .map(Character -> {
-                    Character.setName(newCharacter.getName());
-                    Character.setCharacterClass(newCharacter.getCharacterClass());
-                    Character.setGender(newCharacter.getGender());
-                    Character.setRace(newCharacter.getRace());
-                    Character.setCharacterLevel(newCharacter.getCharacterLevel());
-                    if (newCharacter.getAlignment()!= null) {
-                    Character.setAlignment(newCharacter.getAlignment());
-                    }
-                    if (newCharacter.getSubrace() != null) {
-                        Character.setSubrace(newCharacter.getSubrace());
-                    }
-                    Character.setSize(newCharacter.getSize());
-                    return repository.save(Character);
+
+    @PutMapping("/{id}")
+    Character replaceCharacter(@RequestBody Character newCharacter, @PathVariable Long id) {
+    return repository.findById(id)
+                .map(character -> {
+                    character.setName(newCharacter.getName());
+                    character.setGender(newCharacter.getGender());
+                    character.setRace(newCharacter.getRace());
+                    character.setCharacterClass(newCharacter.getCharacterClass());
+                    character.setCharacterLevel(newCharacter.getCharacterLevel());
+                    return repository.save(character);
                 })
                 .orElseGet(() -> {
-                    newCharacter.setName(id);
+                    newCharacter.setId(id);
                     return repository.save(newCharacter);
                 });
     }
-    @DeleteMapping("characters/{id}")
-    void deleteCharacter(@PathVariable String id) {
+
+    @DeleteMapping("/{id}")
+    void deleteCharacter(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }

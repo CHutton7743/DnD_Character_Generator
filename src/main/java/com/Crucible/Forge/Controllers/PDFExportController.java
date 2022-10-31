@@ -147,32 +147,32 @@ public class PDFExportController {
     public void addSavingThrows(ArrayList<PDField> fieldsList, Character character) throws IOException {
         for (PDField field: fieldsList) {
             if (field.getFullyQualifiedName().equals("ST Strength")) {
-                field.setValue(String.valueOf(character.getStrength()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getStrength())));
             } else if (field.getFullyQualifiedName().equals("ST Dexterity")) {
-                field.setValue(String.valueOf(character.getDexterity()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getDexterity())));
             } else if (field.getFullyQualifiedName().equals("ST Constitution")) {
-                field.setValue(String.valueOf(character.getConstitution()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getConstitution())));
             } else if (field.getFullyQualifiedName().equals("ST Intelligence")) {
-                field.setValue(String.valueOf(character.getIntelligence()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getIntelligence())));
             } else if (field.getFullyQualifiedName().equals("ST Wisdom")) {
-                field.setValue(String.valueOf(character.getWisdom()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getWisdom())));
             } else if (field.getFullyQualifiedName().equals("ST Charisma")) {
-                field.setValue(String.valueOf(character.getCharisma()));
+                field.setValue(String.valueOf(calculateBaseStatsModifier(character.getCharisma())));
             }
         }
     }
     public void addBasics(ArrayList<PDField> fieldsList, Character character) throws IOException {
         for (PDField field: fieldsList) {
             if (field.getFullyQualifiedName().equals("PlayerName")) {
-                field.setValue(character.getName());
+                field.setValue(String.valueOf(character.getName()));
             } else if (field.getFullyQualifiedName().equals("ClassLevel")) {
                 field.setValue(String.valueOf(character.getCharacterLevel()));
             } else if (field.getFullyQualifiedName().equals("Background")) {
                 field.setValue("Drunk");
             } else if (field.getFullyQualifiedName().equals("CharacterName")) {
-                field.setValue(character.getName());
+                field.setValue(String.valueOf(character.getName()));
             } else if (field.getFullyQualifiedName().equals("CharacterName 2")) {
-                field.setValue(character.getName());
+                field.setValue(String.valueOf(character.getName()));
             } else if (field.getFullyQualifiedName().equals("Alignment")) {
                 field.setValue(character.getAlignment().toString());
             } else if (field.getFullyQualifiedName().equals("Race ")) {

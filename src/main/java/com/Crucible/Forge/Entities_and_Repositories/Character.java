@@ -1,23 +1,23 @@
 package com.Crucible.Forge.Entities_and_Repositories;
-
-
 import com.Crucible.Forge.Character_Resources.*;
 import com.Crucible.Forge.Character_Resources.Class;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "characters")
 public class Character extends SubStats {
+    @Column(name = "name")
+    private String name;
     private int speed;
     private Size size;
     @Column(name = "gender")
-    private Gender gender;
+    private String gender;
     @Column(name = "race")
     private Race race;
     @Id
-    @Column(name = "name")
-    private String name;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "class")
     private Class characterClass;
     @Column(name = "level")
@@ -30,23 +30,34 @@ public class Character extends SubStats {
 
     }
 
-    public int getSpeed() {
-        return speed;
+    public Character(String name, String gender, String race, Long id, String characterClass, int characterLevel) {
+        this.name = name;
+        this.gender = gender;
+        this.race = Race.valueOf(capitalize(race));
+        this.id = id;
+        this.characterClass = Class.valueOf(capitalize(characterClass));
+        this.characterLevel = characterLevel;
     }
 
-    public Character(String name, Gender gender, Race race, Class characterClass, int characterLevel) {
-        this.gender = gender;
-        this.race = race;
+    public Character(String name, String gender, String race, Long id, String characterClass, String subrace) {
         this.name = name;
-        this.characterClass = characterClass;
-        this.characterLevel = characterLevel;
+        this.gender = gender;
+        this.race = Race.valueOf(capitalize(race));
+        this.id = id;
+        this.characterClass = Class.valueOf(capitalize(characterClass));
+        this.subrace = SubRace.valueOf(capitalize(subrace));
     }
-    public Character(String name, Gender gender, Race race, SubRace subRace, Class characterClass, int characterLevel) {
-        this.gender = gender;
-        this.race = race;
-        this.name = name;
-        this.characterClass = characterClass;
-        this.characterLevel = characterLevel;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     public void setSpeed(int speed) {
@@ -61,11 +72,11 @@ public class Character extends SubStats {
         this.size = size;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -121,6 +132,10 @@ public class Character extends SubStats {
         return subrace;
     }
 
+    public void setSubrace(SubRace subrace) {
+        this.subrace = subrace;
+    }
+
     public String getBackground() {
         return background;
     }
@@ -129,12 +144,9 @@ public class Character extends SubStats {
         this.background = background;
     }
 
-    public void setSubrace(SubRace subrace) {
-        this.subrace = subrace;
-    }
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Character{" +
                 "name=" + name +
                 ", race='" + race.toString() + '\'' +
                 ", characterClass='" + characterClass.toString() + '\'' +
@@ -147,5 +159,11 @@ public class Character extends SubStats {
                 ", alignment='" + alignment.toString() + '\'' +
                 ", size='" + size.toString() + '\'' +
                 '}';
+    }
+    public static String capitalize(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
