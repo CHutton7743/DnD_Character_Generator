@@ -15,7 +15,7 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping
-    List<User> all() {
+    List<User> all(@PathVariable String id) {
         return userRepository.findAll();
     }
 
