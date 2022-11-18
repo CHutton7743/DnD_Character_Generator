@@ -1,32 +1,19 @@
 package com.Crucible.Forge.Character_Resources;
 
-import com.Crucible.Forge.Entities_and_Repositories.Character;
-
+import com.Crucible.Forge.Entities.Character;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+@Component
+@Data
 public class ForgeLogic extends SubStats{
     private ArrayList<Integer> statsList = new ArrayList<>();
-    private Character character;
+    private int[] statArray = new int[6];
+    private int[] subStatArray = new int[6];
 
-    public ForgeLogic(Character characterToForge) {
-        this.character = characterToForge;
-    }
-
-    public void forgeLogic() {
-
-    }
-    public void runForgeLogic() {
-        calculateCharismaSubstats();
-        calculateDexteritySubstats();
-        calculateIntellectSubstats();
-        calculateStrengthSubstats();
-        calculateWisdomSubstats();
-        calculateRacialStats();
-        calculateSpeed();
-    }
-
-    private ArrayList<Integer> rollStats4d6() {
+    public ArrayList<Integer> rollStats4d6() {
         Dice dice = new Dice();
         ArrayList<Integer> statList = new ArrayList<>();
         int[] rolls = new int[4];
@@ -54,7 +41,7 @@ public class ForgeLogic extends SubStats{
         }
         return statList;
     }
-    private ArrayList<Integer> standardStatList() {
+    public ArrayList<Integer> standardStatList() {
         ArrayList<Integer> statList = new ArrayList<>();
         statList.add(15);
         statList.add(14);
@@ -64,11 +51,16 @@ public class ForgeLogic extends SubStats{
         statList.add(8);
         return statList;
     }
-    private void formatStats() {
-
+    public void formatStats(Character character) {
+        this.statsList.set(0, character.getStrength());
+        this.statsList.set(1, character.getDexterity());
+        this.statsList.set(2, character.getConstitution());
+        this.statsList.set(3, character.getIntelligence());
+        this.statsList.set(4, character.getWisdom());
+        this.statsList.set(5, character.getCharisma());
     }
 
-    private void calculateRacialStats(String halfElfChoice) {
+    public void calculateRacialStats(Character character, String halfElfChoice) {
         switch(character.getRace()) {
             case Elf -> {
                 if (character.getSubrace() == SubRace.HighElf) {
@@ -162,7 +154,7 @@ public class ForgeLogic extends SubStats{
             default -> throw new IllegalStateException("Unexpected value: " + character.getRace());
         }
     }
-    private void calculateRacialStats() {
+    public void calculateRacialStats(Character character) {
         switch(character.getRace()) {
             case Elf -> {
                 if (character.getSubrace() == SubRace.HighElf) {
@@ -245,15 +237,15 @@ public class ForgeLogic extends SubStats{
         }
     }
 
-    private void calculateSize(Race race) {
-        switch(race) {
+    public void calculateSize(Character character) {
+        switch(character.getRace()) {
             case Elf, Tiefling, Orc, Dragonborn, Human, Halfelf, Halforc -> character.setSize(Size.Medium);
             case Gnome, Halfling, Dwarf -> character.setSize(Size.Small);
-            default -> throw new IllegalStateException("Unexpected value: " + race);
+            default -> throw new IllegalStateException("Unexpected value: " + character.getRace());
         }
     }
 
-    private void calculateStrengthSubstats() {
+    public void calculateStrengthSubstats(Character character) {
         int test = statsList.get(0);
         switch (test) {
             case 1 -> character.setAthletics(character.getAthletics()-5);
@@ -269,7 +261,7 @@ public class ForgeLogic extends SubStats{
             default -> throw new IllegalStateException("Unexpected value: " + test);
         }
     }
-    private void calculateDexteritySubstats() {
+    public void calculateDexteritySubstats(Character character) {
         int test = statsList.get(1);
         switch (test) {
             case 1 -> {
@@ -326,7 +318,7 @@ public class ForgeLogic extends SubStats{
         }
     }
 
-    private void calculateIntellectSubstats() {
+    public void calculateIntellectSubstats(Character character) {
         int test = statsList.get(3);
         switch (test) {
             case 1 -> {
@@ -402,7 +394,7 @@ public class ForgeLogic extends SubStats{
             default -> throw new IllegalStateException("Unexpected value: " + test);
         }
     }
-    private void calculateWisdomSubstats() {
+    public void calculateWisdomSubstats(Character character) {
         int test = statsList.get(4);
 
         switch (test) {
@@ -479,7 +471,7 @@ public class ForgeLogic extends SubStats{
             default -> throw new IllegalStateException("Unexpected value: " + test);
         }
     }
-    private void calculateCharismaSubstats() {
+    public void calculateCharismaSubstats(Character character) {
         int test = statsList.get(5);
         switch (test) {
             case 1 -> {
@@ -546,7 +538,7 @@ public class ForgeLogic extends SubStats{
         }
     }
 
-    private boolean determineIfValidRace(Race race, SubRace subRace) {
+    public boolean determineIfValidRace(Race race, SubRace subRace) {
         for (Race index: Race.values()) {
             if (index == race) {
                 return true;
@@ -560,7 +552,7 @@ public class ForgeLogic extends SubStats{
         return false;
     }
 
-    private void calculateSpeed() {
+    public void calculateSpeed(Character character) {
         switch(character.getRace()) {
             case Elf, Tiefling, Orc, Dragonborn, Human, Halfelf, Halforc -> character.setSpeed(30);
             case Gnome, Halfling, Dwarf -> character.setSpeed(25);
@@ -572,27 +564,5 @@ public class ForgeLogic extends SubStats{
                     HillDwarf, MountainDwarf, LightFootHalfling, StoutHalfling -> character.setSpeed(25);
             default -> throw new IllegalStateException("Unexpected value: " + character.getSubrace());
         }
-    }
-    public ArrayList<Integer> getStatsList() {
-        return statsList;
-    }
-
-    public void setStatsList(ArrayList<Integer> statsList) {
-        this.statsList = statsList;
-    }
-
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
-    private String retrieveSpell(String spellName) {
-        return null;
-    }
-    private String retrieveFeat(String featName) {
-        return null;
     }
 }

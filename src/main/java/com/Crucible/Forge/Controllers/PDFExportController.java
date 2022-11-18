@@ -1,9 +1,6 @@
 package com.Crucible.Forge.Controllers;
 
-import com.Crucible.Forge.Character_Resources.Alignment;
-import com.Crucible.Forge.Character_Resources.BaseStats;
-import com.Crucible.Forge.Character_Resources.Race;
-import com.Crucible.Forge.Entities_and_Repositories.Character;
+import com.Crucible.Forge.Entities.Character;
 import com.Crucible.Forge.Exceptions.PdfExportException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
