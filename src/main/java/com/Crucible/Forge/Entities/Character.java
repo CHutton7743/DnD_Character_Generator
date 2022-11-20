@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Data
 public class Character extends SubStats {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "character_seq")
-    @SequenceGenerator(name = "character_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
+    @JsonIgnore
     @ManyToOne(targetEntity = User.class)
     private User user;
     @Column(name = "name")
