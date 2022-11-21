@@ -1,5 +1,6 @@
 package com.Crucible.Forge.Character_Resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,16 +8,16 @@ import lombok.ToString;
 @Getter
 @Setter
 public abstract class BaseStats {
-    @ToString.Exclude
+    @JsonIgnore
     int strength;
-    @ToString.Exclude
+    @JsonIgnore
     int dexterity;
-    @ToString.Exclude
+    @JsonIgnore
     int constitution;
-    @ToString.Exclude
+    @JsonIgnore
     int intelligence;
-    @ToString.Exclude
+    @JsonIgnore
     int wisdom;
-    @ToString.Exclude
+    @JsonIgnore
     int charisma;
 }
